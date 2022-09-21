@@ -7,15 +7,49 @@ router.get("/", async (req, res) => {
   res.render("index", { blogs });
 });
 
-router.post("/", (req, res) => {
-  const blog = new Blog({});
+router.get("/new", (req, res) => {
+  res.render("new");
+});
+
+router.post("/", async (req, res) => {
+  const { title, description, author, createdAt } = req.body;
+  const newBlog = new Blog({ title, description, author, createdAt });
+  await newBlog.save();
+  res.redirect(`/blogs/${newBlog._id}`);
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const blog = await Blog.findById(id);
-  console.log(blog);
   res.render("details", { blog });
+});
+
+router.get("/:id/edit", async (req, res) => {
+  const { id } = req.params;
+  const blog = await Blog.findById(id);
+  res.render("edit", { blog });
+});
+
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, description, author, createdAt } = req.body;
+  const blog = await Blog.findByIdAndUpdate(
+    id,
+    {
+      title,
+      description,
+      author,
+      createdAt,
+    },
+    { runValidators: true }
+  );
+  res.redirect(`/blogs/${blog._id}`);
+});
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const blog = await Blog.findByIdAndDelete(id);
+  res.redirect("/blogs");
 });
 
 module.exports = router;

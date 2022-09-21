@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const blogsRouter = require("./routes/blogs");
@@ -17,7 +18,7 @@ app.use(
     extended: false,
   })
 );
-
+app.use(methodOverride("_method"));
 app.use("/blogs", blogsRouter);
 
 const blogs = [
