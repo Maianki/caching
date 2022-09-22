@@ -1,16 +1,21 @@
 <%- include('partials/header', {title: "Homepage"}) %>
-<body>
-    <h1>All Blogs</h1>
-    <% for(let blog of blogs){ %>
-    <h2><%= blog.title%></h2>
-    <li><%= blog.description %></li>
-    <span><%= blog.createdAt.toLocaleString() %></span>
-    <a href="/blogs/<%= blog._id %>">Read more...</a>
-    <% } %>
-   
-    <div>
-        <br>
-        <a href="/blogs/new">Add new blog</a>
+<h1 class="display-1 text-secondary">kuma.In</h1>
+
+<p>Personal Blog by 
+<span class="">Ankit Kumain</span> </p>
+<div class="d-flex flex-row justify-content-end pe-4">
+    <a href="/blogs/new" class="btn btn-secondary">Add new blog</a>
+</div>
+    <div class="container-sm mt-4">
+        <% for(let blog of blogs){ %>
+            <div class ="shadow-none p-3 mb-5 bg-dark rounded">
+                <h2 class="text-secondary"><%= blog.title%></h2>
+                <span class="text-sm fw-lighter font-monospace opacity-75">🍵<%= blog.createdAt.toLocaleDateString() %></span>
+                <p class="text-white-50 mt-2"><%= blog.description %></p>
+                <a href="/blogs/<%= blog._id %>" class="btn-link">Read more...</a>
+            </div>
+        <% } %>
+       
     </div>
     
 <%- include('partials/footer') %>

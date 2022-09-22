@@ -10,6 +10,7 @@ const app = express();
 
 mongoose.connect("mongodb://localhost:27017/myblog");
 
+app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -23,9 +24,8 @@ app.use(
 app.use(methodOverride("_method"));
 app.use("/blogs", blogsRouter);
 
-
 app.get("/", (req, res) => {
-  res.send(`<h1>Home Page!!</h1>`);
+  res.redirect("/blogs");
 });
 
 app.listen(3000, () => {
