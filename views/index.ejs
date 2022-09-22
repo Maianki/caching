@@ -10,7 +10,7 @@
         <% for(let blog of blogs){ %>
             <div class ="shadow-none p-3 mb-5 bg-dark rounded">
                 <h2 class="text-secondary"><%= blog.title%></h2>
-                <span class="text-sm fw-lighter font-monospace opacity-75">🍵<%= blog.createdAt.toLocaleDateString() %></span>
+                <span class="text-sm fw-lighter font-monospace opacity-75">🍵<%= blog.createdAt.toLocaleDateString() %></span> 
                 <p class="text-white-50 mt-2"><%= blog.description %></p>
                 <a href="/blogs/<%= blog._id %>" class="btn-link">Read more...</a>
             </div>
