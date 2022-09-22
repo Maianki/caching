@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const responseTime = require("response-time");
 const blogsRouter = require("./routes/blogs");
 const app = express();
 
@@ -13,6 +14,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
+app.use(responseTime());
 app.use(
   bodyParser.urlencoded({
     extended: false,
@@ -21,18 +23,6 @@ app.use(
 app.use(methodOverride("_method"));
 app.use("/blogs", blogsRouter);
 
-const blogs = [
-  {
-    title: "test",
-    createdAt: Date.now(),
-    description: "Test description",
-  },
-  {
-    title: "test - 2",
-    createdAt: Date.now(),
-    description: "Test description second",
-  },
-];
 
 app.get("/", (req, res) => {
   res.send(`<h1>Home Page!!</h1>`);

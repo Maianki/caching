@@ -1,6 +1,9 @@
 const express = require("express");
 const Blog = require("../models/blog");
+const cacheBlog = require("../middleware/cacheBlog");
+const redis = require("redis");
 const router = express.Router();
+const client = require("../common/common");
 
 router.get("/", async (req, res) => {
   const blogs = await Blog.find({});
@@ -18,10 +21,18 @@ router.post("/", async (req, res) => {
   res.redirect(`/blogs/${newBlog._id}`);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", cacheBlog, async (req, res) => {
   const { id } = req.params;
-  const blog = await Blog.findById(id);
-  res.render("details", { blog });
+  if (id) {
+    const blog = await Blog.findById(id);
+    await client.set(`blog-${id}`, JSON.stringify(blog), {
+      EX: 100,
+      NX: true,
+    });
+    res.render("details", { blog });
+  } else {
+    res.status(404).send({ message: "blog not found" });
+  }
 });
 
 router.get("/:id/edit", async (req, res) => {

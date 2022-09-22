@@ -7,13 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <p>All Blogs</p>
+    <h1>All Blogs</h1>
     <% for(let blog of blogs){ %>
     <h2><%= blog.title%></h2>
     <li><%= blog.description %></li>
     <span><%= blog.createdAt.toLocaleString() %></span>
     <a href="/blogs/<%= blog._id %>">Read more...</a>
     <% } %>
+   
+    <div>
+        <br>
+        <a href="/blogs/new">Add new blog</a>
+    </div>
     
 </body>
 </html>
