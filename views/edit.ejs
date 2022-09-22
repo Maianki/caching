@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Blog</title>
-</head>
+<%- include('partials/header', {title: "Edit Blog"}) %>
 <body>
     <h1>Edit a blog</h1>
     <form action="/blogs/<%= blog._id %>?_method=PUT" method="POST">
@@ -16,5 +9,5 @@
         <p><%= blog.createdAt.toISOString().split('T')[0] %></p>
         <button>Submit</button>
     </form>
-</body>
-</html>
+
+<%- include('partials/footer') %>

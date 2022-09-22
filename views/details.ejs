@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= blog.title %></title>
-</head>
+<%- include('partials/header', {title: blog.title}) %>
+
 <body>
     <h1><%= blog.title%></h1>
     <p><%= blog.description %></p>
@@ -14,5 +8,5 @@
     <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
         <button>Delete</button>
     </form> 
-</body>
-</html>
+
+<%- include('partials/footer') %>
